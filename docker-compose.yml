@@ -1,5 +1,4 @@
 postgis:
-    #image: artifactory.mars.haw-hamburg.de:5000/kartoza/postgis
     build: .
     dockerfile: ./postgis_Dockerfile
     privileged: true
