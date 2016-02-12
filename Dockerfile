@@ -29,6 +29,7 @@ ENV GEOSERVER_HOME /opt/geoserver
 ENV JAVA_HOME /usr/
 ENV JAVA_OPTS="-server -Xms128m -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:MaxPermSize=1G -XX:+UseParallelGC"
 
+
 COPY startup.sh /startup.sh
 RUN chmod +x /startup.sh
 CMD /startup.sh
