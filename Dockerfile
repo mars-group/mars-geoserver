@@ -15,7 +15,7 @@ RUN apt-get -y install unzip nfs-common ca-certificates curl
 
 #
 # Install Oracle JDK 7 for better performance (JDK 8 not supported yet)
-# source: https://github.com/orgisuper/docker/blob/java7/oracle_jre/Dockerfile
+# source: https://github.com/orgisuper/docker/blob/java7/oracle_jdk/Dockerfile
 #
 ENV VERSION 7
 ENV UPDATE 80
@@ -54,14 +54,14 @@ ENV _POSIX2_VERSION=199209
 #
 ENV GS_version=2.8.2
 
-RUN wget -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/geoserver-$GS_version-bin.zip -O geoserver.zip; \
-  unzip geoserver.zip -d /opt && mv -v /opt/geoserver* /opt/geoserver; \
+RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/geoserver-$GS_version-bin.zip -O geoserver.zip; \
+  unzip -q geoserver.zip -d /opt && mv -v /opt/geoserver* /opt/geoserver; \
   rm /usr/local/tomcat/geoserver.zip
 
 
 # install importer plugin
-RUN wget -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/extensions/geoserver-$GS_version-importer-plugin.zip -O importer-plugin.zip; \
-  unzip -o importer-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib; \
+RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/extensions/geoserver-$GS_version-importer-plugin.zip -O importer-plugin.zip; \
+  unzip -q -o importer-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib; \
   rm /usr/local/tomcat/importer-plugin.zip
 
 
