@@ -10,5 +10,6 @@ sh ${JAI} >/dev/null < <(echo y) >/dev/null < <(echo y)
 rm ${JAI}
 
 wget --quiet -c http://data.opengeo.org/suite/jai/${JAI_IMAGEIO}
-sh ${JAI_IMAGEIO} >/dev/null < <(echo y) >/dcl < <(echo y)
-rm ${JAI_IMAGEIO}
+sed s/+215/-n+215/ ${JAI_IMAGEIO} > fixed.bin #fixes some strange file corruption
+sh fixed.bin >/dev/null < <(echo y) >/dev/null < <(echo y)
+rm ${JAI_IMAGEIO} fixed.bin
