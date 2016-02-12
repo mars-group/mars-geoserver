@@ -3,5 +3,4 @@ FROM artifactory.mars.haw-hamburg.de:5000/kartoza/postgis
 
 # make postgis available for debugging
 RUN sed -i "s/listen_addresses = 'localhost'/'*'/g" /etc/postgresql/9.4/main/postgresql.conf
-#RUN echo "listen_addresses = 'localhost'" >> /etc/postgresql/9.4/main/postgresql.conf
 RUN echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.4/main/pg_hba.conf

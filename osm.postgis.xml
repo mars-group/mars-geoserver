@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE ImageMosaicJDBCConfig [
+  <!ENTITY mapping PUBLIC "mapping"  "mapping.postgis.xml.inc">
+  <!ENTITY connect PUBLIC "connect"  "connect.postgis.xml.inc">]>
+<config version="1.0">
+  <coverageName name="osm"/>
+  <coordsys name="EPSG:4326"/>
+  <!-- interpolation 1 = nearest neighbour, 2 = bilinear, 3 = bicubic -->
+  <scaleop  interpolation="1"/>
+  <verify cardinality="false"/>
+  &mapping;
+  &connect;
+</config>
