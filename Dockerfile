@@ -21,13 +21,13 @@ ENV VERSION 7
 ENV UPDATE 80
 ENV BUILD 15
 
-ENV JAVA_HOME /usr/lib/jvm/java-${VERSION}-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-$VERSION-oracle
 
 RUN curl --silent --location --retry 3 --cacert /etc/ssl/certs/GeoTrust_Global_CA.pem \
   --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
   http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"u"${UPDATE}"-b"${BUILD}"/jdk-"${VERSION}"u"${UPDATE}"-linux-x64.tar.gz \
   | tar xz -C /tmp && \
-  mkdir -p /usr/lib/jvm && mv /tmp/jdk1.${VERSION}.0_${UPDATE} "${JAVA_HOME}" && \
+  mkdir -p /usr/lib/jvm && mv /tmp/jdk1.${VERSION}.0_$UPDATE "${JAVA_HOME}" && \
   apt-get autoclean && apt-get --purge -y autoremove && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -48,6 +48,11 @@ RUN /install-JAI.sh && rm /install-JAI.sh
 
 ENV _POSIX2_VERSION=199209
 
+#
+# Install JCE policy jars
+#
+COPY jce_policy/local_policy.jar /usr/lib/jvm/java-7-oracle/jre/lib/security/
+COPY jce_policy/US_export_policy.jar /usr/lib/jvm/java-7-oracle/jre/lib/security/
 
 #
 # Install geoserver
@@ -70,7 +75,7 @@ RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$G
 #
 ENV GEOSERVER_HOME /opt/geoserver
 ENV JAVA_HOME /usr/
-ENV JAVA_OPTS="-server -Xms1G -Xmx1G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts"
+ENV JAVA_OPTS="-server -Xms2G -Xmx2G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts -XX:SoftRefLRUPolicyMSPerMB=36000"
 
 COPY startup.sh /startup.sh
 RUN chmod +x /startup.sh
