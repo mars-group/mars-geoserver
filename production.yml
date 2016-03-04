@@ -1,10 +1,13 @@
-postgis:
-    image: artifactory.mars.haw-hamburg.de:5000/kartoza/postgis
+version: '2'
+services:
+  postgis:
+      image: artifactory.mars.haw-hamburg.de:5000/kartoza/postgis
 
-geoserver:
-    build: .
-    links: 
-        - postgis
-    privileged: true
-    ports:
-        - "8080:8080"
+  geoserver:
+      build:
+        context: .
+      links:
+          - postgis
+      privileged: true
+      ports:
+          - "8080:8080"
