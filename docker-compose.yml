@@ -1,17 +1,6 @@
 version: '2'
 services:
-  postgis:
-      build:
-        context: .
-        dockerfile: ./postgis_Dockerfile
-      privileged: true
-      ports:
-          - "5432:5432"
-
   geoserver:
       build: .
-      links:
-          - postgis
-      privileged: true
       ports:
           - "8080:8080"
