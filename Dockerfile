@@ -9,8 +9,7 @@ RUN apt-get update
 
 #-------------Application Specific Stuff ----------------------------------------------------
 
-RUN apt-get -y install unzip nfs-common ca-certificates curl
-#RUN apt-get -y install vim
+RUN apt-get -y install unzip nfs-common ca-certificates python-pip
 
 
 #
@@ -48,11 +47,13 @@ RUN /install-JAI.sh && rm /install-JAI.sh
 
 ENV _POSIX2_VERSION=199209
 
+
 #
 # Install JCE policy jars
 #
 COPY jce_policy/local_policy.jar /usr/lib/jvm/java-7-oracle/jre/lib/security/
 COPY jce_policy/US_export_policy.jar /usr/lib/jvm/java-7-oracle/jre/lib/security/
+
 
 #
 # Install geoserver
@@ -63,11 +64,22 @@ RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$G
   unzip -q geoserver.zip -d /opt && mv -v /opt/geoserver* /opt/geoserver; \
   rm /usr/local/tomcat/geoserver.zip
 
-
 # install importer plugin
 RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/extensions/geoserver-$GS_version-importer-plugin.zip -O importer-plugin.zip; \
   unzip -q -o importer-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib; \
   rm /usr/local/tomcat/importer-plugin.zip
+
+# copy start script
+COPY startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
+
+#
+# Eureka connection
+#
+RUN pip install --index-url=https://artifactory.mars.haw-hamburg.de/artifactory/api/pypi/python_cache_and_private_repos/simple mars-3rd-party-service-wrapper
+COPY . /
+RUN chmod +x /entrypoint.py
 
 
 #
@@ -77,8 +89,5 @@ ENV GEOSERVER_HOME /opt/geoserver
 ENV JAVA_HOME /usr/
 ENV JAVA_OPTS="-server -Xms2G -Xmx2G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts -XX:SoftRefLRUPolicyMSPerMB=36000"
 
-COPY startup.sh /startup.sh
-RUN chmod +x /startup.sh
-CMD /startup.sh
-
 EXPOSE 8080
+CMD ["/entrypoint.py"]
