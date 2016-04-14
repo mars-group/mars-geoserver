@@ -1,8 +1,7 @@
 #!/bin/bash
-docker-compose stop
 
-# build images
 docker-compose build
-
-# start images
-docker-compose up -d
+cd ../marscloudinanutshell
+docker-compose stop geoserver
+docker-compose rm -f geoserver
+docker-compose up -d geoserver
