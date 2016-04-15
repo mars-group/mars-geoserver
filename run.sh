@@ -2,6 +2,6 @@
 
 docker-compose build
 cd ../marscloudinanutshell
-docker-compose stop geoserver
-docker-compose rm -f geoserver
-docker-compose up -d geoserver
+docker-compose -f develop.yml stop geoserver
+docker-compose -f develop.yml rm -f geoserver
+docker-compose -f develop.yml up -d geoserver

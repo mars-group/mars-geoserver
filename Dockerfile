@@ -70,7 +70,7 @@ RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$G
   rm /usr/local/tomcat/importer-plugin.zip
 
 # copy start script
-COPY startup.sh /startup.sh
+COPY startup.sh /
 RUN chmod +x /startup.sh
 
 
@@ -78,7 +78,7 @@ RUN chmod +x /startup.sh
 # Eureka connection
 #
 RUN pip install --index-url=https://artifactory.mars.haw-hamburg.de/artifactory/api/pypi/python_cache_and_private_repos/simple mars-3rd-party-service-wrapper
-COPY . /
+COPY entrypoint.py /
 RUN chmod +x /entrypoint.py
 
 
