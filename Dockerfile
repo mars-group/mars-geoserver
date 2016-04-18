@@ -87,7 +87,7 @@ RUN chmod +x /entrypoint.py
 #
 ENV GEOSERVER_HOME /opt/geoserver
 ENV JAVA_HOME /usr/
-ENV JAVA_OPTS="-server -Xms2G -Xmx2G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts -XX:SoftRefLRUPolicyMSPerMB=36000"
+ENV JAVA_OPTS="-server -Xms2G -Xmx2G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"
 
 EXPOSE 8080
 CMD ["/entrypoint.py"]
