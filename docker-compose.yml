@@ -5,4 +5,6 @@ services:
       ports:
           - "8080:8080"
       volumes:
-        - /opt/geoserver/data_dir/
+        - GeoServerData:/opt/geoserver/data_dir/
+volumes:
+    GeoServerData:
