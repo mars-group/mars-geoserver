@@ -5,6 +5,7 @@ from microservice.microservice import microservice
 import requests
 
 NAME = "geoserver"
+PORT = 8080
 
 def check_status():
     status = "OUT_OF_SERVICE"
@@ -18,6 +19,7 @@ def check_status():
 
 microservice(
     name=NAME,
+    port=PORT,
     entrypoint = ["/startup.sh"],
     status_checker = check_status
 )
