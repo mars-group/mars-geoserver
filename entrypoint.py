@@ -20,6 +20,6 @@ def check_status():
 microservice(
     name=NAME,
     port=PORT,
-    entrypoint = ["/startup.sh"],
+    entrypoint = ["/entrypoint.sh"],
     status_checker = check_status
 )

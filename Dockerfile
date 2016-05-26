@@ -70,8 +70,8 @@ RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$G
   rm /usr/local/tomcat/importer-plugin.zip
 
 # copy start script
-COPY startup.sh /
-RUN chmod +x /startup.sh
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
 
 #
