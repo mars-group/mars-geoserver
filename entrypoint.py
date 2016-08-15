@@ -20,6 +20,8 @@ def check_status():
 microservice(
     name=NAME,
     port=PORT,
+    vip_address=NAME,
+    secure_vip_address=NAME,
     entrypoint = ["/entrypoint.sh"],
     status_checker = check_status
 )
