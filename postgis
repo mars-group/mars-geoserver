@@ -1,5 +1,0 @@
-#--------- Generic stuff all our Dockerfiles should start with so we get caching ------------
-FROM artifactory.mars.haw-hamburg.de:5000/kartoza/postgis
-
-# make postgis available for debugging
-RUN echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.4/main/pg_hba.conf

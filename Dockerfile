@@ -9,7 +9,7 @@ RUN apt-get update
 
 #-------------Application Specific Stuff ----------------------------------------------------
 
-RUN apt-get -y install unzip nfs-common ca-certificates python-pip
+RUN apt-get -y install unzip nfs-common
 
 
 #
@@ -36,14 +36,6 @@ RUN sed -i '/-jar start.jar/ s/$/-Dorg.geotools.coverage.jaiext.enabled=true/' /
 
 
 #
-# Eureka connection
-#
-RUN pip install --index-url=https://artifactory.mars.haw-hamburg.de/artifactory/api/pypi/python_cache_and_private_repos/simple mars-3rd-party-service-wrapper
-COPY entrypoint.py /
-RUN chmod +x /entrypoint.py
-
-
-#
 # copy start script
 #
 COPY entrypoint.sh /
@@ -58,4 +50,4 @@ ENV JAVA_HOME /usr/
 ENV JAVA_OPTS="-server -Xms2G -Xmx2G -XX:+UseParallelOldGC -XX:+UseParallelGC -XX:NewRatio=2 -XX:+AggressiveOpts -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"
 
 EXPOSE 8080
-CMD ["/entrypoint.py"]
+CMD ["/entrypoint.sh"]
