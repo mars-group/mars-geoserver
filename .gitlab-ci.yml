@@ -12,8 +12,8 @@ deploy:
     - docker build -t $SERVIE_NAME:latest .
     - docker tag $SERVIE_NAME:latest $DOCKER_REGISTRY/$SERVIE_NAME:$CI_PIPELINE_ID
     - docker tag $SERVIE_NAME:latest $DOCKER_REGISTRY/$SERVIE_NAME:latest
-    - docker tag $SERVIE_NAME:latest $DOCKER_REGISTRY/$SERVIE_NAME:$CI_BUILD_REF
+    - docker tag $SERVIE_NAME:latest $DOCKER_REGISTRY/$SERVIE_NAME:$CI_COMMIT_SHA
     - docker login -u $ARTIFACTORY_USER -p $ARTIFACTORY_PW $DOCKER_REGISTRY
     - docker push $DOCKER_REGISTRY/$SERVIE_NAME:$CI_PIPELINE_ID
     - docker push $DOCKER_REGISTRY/$SERVIE_NAME:latest
-    - docker push $DOCKER_REGISTRY/$SERVIE_NAME:$CI_BUILD_REF
+    - docker push $DOCKER_REGISTRY/$SERVIE_NAME:$CI_COMMIT_SHA
