@@ -1,5 +1,5 @@
 #--------- Generic stuff all our Dockerfiles should start with ------------
-FROM artifactory.mars.haw-hamburg.de:5000/tomcat:9
+FROM nexus.informatik.haw-hamburg.de/tomcat:9
 
 RUN  export DEBIAN_FRONTEND=noninteractive
 ENV  DEBIAN_FRONTEND noninteractive
