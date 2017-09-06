@@ -1,8 +1,7 @@
 FROM nexus.informatik.haw-hamburg.de/tomcat:9-alpine
 
 RUN   apk update \
-&&   apk add ca-certificates wget \
-&&   update-ca-certificates
+&&   apk add wget
 
 
 #
@@ -10,7 +9,7 @@ RUN   apk update \
 #
 ENV GS_version=2.11.2
 
-RUN mkdir /opt
+RUN mkdir -p /opt
 
 RUN wget --quiet -c http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_version/geoserver-$GS_version-bin.zip -O geoserver.zip; \
   unzip -q geoserver.zip -d /opt && mv -v /opt/geoserver* /opt/geoserver; \
