@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# This builds the GeoServer and restarts the GeoServer docker container inside the websuite.
-# It requires the websuite to be running and that both git repos are cloned to the same folder.
+# Builds the Geoserver docker image, pushes the image to Nexus and restarts the pod.
 
-docker-compose build
-cd ../mars-cloudinanutshell
-docker-compose -f develop.yml stop geoserver
-docker-compose -f develop.yml rm -f geoserver
-docker-compose -f develop.yml up -d geoserver
+DOCKER_REGISTRY="nexus.informatik.haw-hamburg.de"
+SERVIE_NAME="geoserver"
+
+docker build -t $DOCKER_REGISTRY/$SERVIE_NAME:dev --no-cache .
+docker push $DOCKER_REGISTRY/$SERVIE_NAME:dev
+
+kubectl delete pod $(kubectl get pod |grep geoserver |awk '{print $1;}') --force
