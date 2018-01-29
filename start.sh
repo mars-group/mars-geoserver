@@ -8,4 +8,4 @@ SERVIE_NAME="geoserver"
 docker build -t $DOCKER_REGISTRY/$SERVIE_NAME:dev --no-cache .
 docker push $DOCKER_REGISTRY/$SERVIE_NAME:dev
 
-kubectl delete pod $(kubectl get pod |grep geoserver |awk '{print $1;}') --force
+kubectl -n mars-mars-beta delete pod $(kubectl -n mars-mars-beta get pod |grep geoserver |awk '{print $1;}') --force
